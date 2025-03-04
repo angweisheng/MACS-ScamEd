@@ -11,13 +11,11 @@ export class ParticipantsService {
     private participantModel: Model<ParticipantDocument>,
   ) {}
 
-  async create(createParticipantDto: CreateParticipantDto): Promise<Participant> {
-    console.log('Creating participant:', createParticipantDto);
+  async create(email: string): Promise<Participant> {
+    console.log('Creating participant:', email);
     const createdParticipant = new this.participantModel({
-      ...createParticipantDto,
+      email: email,
       isOTP: false,
-      isTNC: false,
-      surveyAnswers: null
     });
     const savedParticipant = await createdParticipant.save();
     console.log('Participant saved:', savedParticipant);
