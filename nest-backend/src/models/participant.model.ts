@@ -9,7 +9,10 @@ export class Participant {
   email: string;
 
   @Prop({ default: false })
-  isVerified: boolean;
+  isOTP: boolean;
+
+  @Prop({ default: false })
+  isTNC: boolean;
 
   @Prop({ type: Object })
   surveyAnswers: any;

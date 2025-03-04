@@ -15,8 +15,9 @@ export class ParticipantsService {
     console.log('Creating participant:', createParticipantDto);
     const createdParticipant = new this.participantModel({
       ...createParticipantDto,
-      isVerified: false,
-      surveyAnswers: null,
+      isOTP: false,
+      isTNC: false,
+      surveyAnswers: null
     });
     const savedParticipant = await createdParticipant.save();
     console.log('Participant saved:', savedParticipant);

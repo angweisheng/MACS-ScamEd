@@ -1,0 +1,3 @@
+interface ParticipantInit {
+    email: string
+}
