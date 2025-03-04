@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ParticipantsModule } from './participants/participants.module';
 import { HealthController } from './health.controller';
+import { OtpModule } from './otp/otp.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { HealthController } from './health.controller';
     }),
     MongooseModule.forRoot(process.env.MONGO_CONNECTION as string),
     ParticipantsModule,
+    OtpModule,
+    EmailModule
   ],
   controllers: [AppController, HealthController],
   providers: [AppService],
