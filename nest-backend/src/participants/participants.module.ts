@@ -10,5 +10,6 @@ import { Participant, ParticipantSchema } from '../models/participant.model';
   ],
   controllers: [ParticipantsController],
   providers: [ParticipantsService],
+  exports: [ParticipantsService]
 })
 export class ParticipantsModule {}
