@@ -17,7 +17,7 @@ export class EmailService {
 
   async sendOTP(email: string, otp: string): Promise<void> {
     await this.transporter.sendMail({
-      from: '"FormSG Official" <formSG@gt.tech.gov.sg>',
+      from: '"FormSG" <formSG@gt.tech.gov.sg>',
       to: email,
       subject: 'One-Time Password (OTP) for FormSG',
       text: `Your OTP is ${otp}`,
