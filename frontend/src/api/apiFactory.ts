@@ -27,7 +27,7 @@ export const sendOTP = async (email: string) => {
         throw error;
     }
 }
-export const verify = async (email: string) => {
+export const verifyOTP = async (email: string) => {
     try {
         const api = BASE_SERVER_URL + OTP_PATH + '/verify';
         const response = await axios.post(api, email);
