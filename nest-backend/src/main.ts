@@ -9,6 +9,12 @@ async function bootstrap() {
   // Enable validation
   app.useGlobalPipes(new ValidationPipe());
 
+  app.enableCors({
+    origin: process.env.FRONTEND_ORIGIN,
+    methods: ['*'],
+    credentials: true,
+  });
+
   // Configure Swagger
   const config = new DocumentBuilder()
     .setTitle('ScamEd API')
