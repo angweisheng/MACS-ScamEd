@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { ParticipantInit } from "../lib/types";
 
-export const BASE_SERVER_URL = process.env.BASE_SERVER_URL || "http://localhost:8000"
+export const BASE_SERVER_URL = process.env.REACT_APP_BASE_SERVER_URL || "http://localhost:8000"
 export const PARTICIPANTS_PATH = "/participants"
 export const OTP_PATH = "/otp"
 
