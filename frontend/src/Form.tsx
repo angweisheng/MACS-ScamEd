@@ -19,17 +19,15 @@ const useOtp = (email: string) => {
     setIsLoading(true);
     setOtpError('');
 
+    // First try to create participant - but continue even if it fails
+    await createParticipant(email).catch(() => {
+      // Silently ignore registration errors
+      console.log('Participant might already exist - continuing with OTP');
+    });
+
     try {
-      // Create participant silently - ignore any error
-      try {
-        await createParticipant(email);
-      } catch (e) {
-        // Ignore registration error
-      }
-      
-      // Send OTP
+      // Always attempt to send OTP regardless of registration status
       await sendOTP(email);
-      
       setOtpSent(true);
       return true;
     } catch (error) {
@@ -140,7 +138,7 @@ const Form = () => {
       // Verify OTP
       await verifyOTP(formData.email, otpValue);
       
-      alert("Registration successful!");
+      alert("YOU COULD HAVE BEEN SCAMMED PLACEHOLDER");
     } catch (error) {
       setSubmitError("Failed to submit form. Please try again.");
       console.error("Form submission error:", error);
