@@ -8,7 +8,7 @@ export const OTP_PATH = "/otp"
 export const createParticipant = async (email: string) => {
     try {
         const api = BASE_SERVER_URL + PARTICIPANTS_PATH;
-        const response = await axios.post(api, email);
+        const response = await axios.post(api, { email });
         console.log('Participant Registered: ', response.data);
         return response.data;
     } catch (error) {
@@ -19,7 +19,7 @@ export const createParticipant = async (email: string) => {
 export const sendOTP = async (email: string) => {
     try {
         const api = BASE_SERVER_URL + OTP_PATH + '/send';
-        const response = await axios.post(api, email);
+        const response = await axios.post(api, { email });
         console.log('OTP SENT: ', response.data);
         return response.data;
     } catch (error) {
@@ -27,10 +27,10 @@ export const sendOTP = async (email: string) => {
         throw error;
     }
 }
-export const verifyOTP = async (email: string) => {
+export const verifyOTP = async (email: string, otp: string) => {
     try {
         const api = BASE_SERVER_URL + OTP_PATH + '/verify';
-        const response = await axios.post(api, email);
+        const response = await axios.post(api, { email, otp });
         console.log('OTP Verified: ', response.data);
         return response.data;
     } catch (error) {

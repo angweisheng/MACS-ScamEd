@@ -1,7 +1,8 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import "./Form.css";
+import { createParticipant, sendOTP, verifyOTP } from "./api/apiFactory";
 
-const useOtp = (email: string, sendOtpFn: (email: string) => Promise<boolean>) => {
+const useOtp = (email: string) => {
   const [otpSent, setOtpSent] = useState(false);
   const [otpError, setOtpError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -17,9 +18,18 @@ const useOtp = (email: string, sendOtpFn: (email: string) => Promise<boolean>) =
     setOtpError('');
 
     try {
-      const success = await sendOtpFn(email);
-      setOtpSent(success);
-      return success;
+      // Create participant silently - ignore any error
+      try {
+        await createParticipant(email);
+      } catch (e) {
+        // Ignore registration error
+      }
+      
+      // Send OTP
+      await sendOTP(email);
+      
+      setOtpSent(true);
+      return true;
     } catch (error) {
       setOtpError('Failed to send OTP');
       return false;
@@ -92,22 +102,15 @@ const OtpInput = ({
   );
 };
 
-// weisheng can help with this pls
-const sendOtpToEmail = async (email: string): Promise<boolean> => {
 
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      console.log(`OTP sent to ${email}`);
-      resolve(true);
-    }, 1000);
-  });
-};
 
 const Form = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
   });
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     otpSent,
@@ -116,7 +119,7 @@ const Form = () => {
     otpValue,
     setOtpValue,
     sendOtp
-  } = useOtp(formData.email, sendOtpToEmail);
+  } = useOtp(formData.email);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -126,10 +129,22 @@ const Form = () => {
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", { ...formData, otp: otpValue });
-    alert("Form submitted successfully!");
+    setSubmitError("");
+    setIsSubmitting(true);
+
+    try {
+      // Verify OTP
+      await verifyOTP(formData.email, otpValue);
+      
+      alert("Registration successful!");
+    } catch (error) {
+      setSubmitError("Failed to submit form. Please try again.");
+      console.error("Form submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -195,10 +210,11 @@ const Form = () => {
         <button
           type="submit"
           className="submit-button"
-          disabled={!otpSent || otpValue.length !== 6 || otpLoading}
+          disabled={!otpSent || otpValue.length !== 6 || otpLoading || isSubmitting}
         >
-          Submit now
+          {isSubmitting ? "Submitting..." : "Submit now"}
         </button>
+        {submitError && <p className="error-message">{submitError}</p>}
       </form>
 
       <div className="help-button">?</div>
