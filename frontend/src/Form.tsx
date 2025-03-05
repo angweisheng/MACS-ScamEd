@@ -30,15 +30,15 @@ const Form = () => {
     <div className="form-container">
       <header className="header">
         <div className="logo-container">
-          <img src="build-logo.png" alt="Singapore Government Logo" className="sg-logo" />
+          <img src="sg-logo.png" alt="Singapore Government Logo" className="sg-logo" />
           <span className="gov-text">A Singapore Government Agency Website</span>
           <a href="#" className="identify-link">How to identify ▼</a>
         </div>
         <div className="app-header">
-          <h1>Free Ice Cream - Build Hackathon</h1>
+          <h1>Build Hackathon - Free Ice Cream</h1>
           <div className="time-estimate">
             <span className="clock-icon">⏱</span>
-            <span>2 mins estimated time to complete</span>
+            <span>1 minute estimated time to complete</span>
           </div>
         </div>
       </header>
@@ -46,15 +46,13 @@ const Form = () => {
       <section className="instructions">
         <h2>Instructions</h2>
         <p>
-          Please note that by submitting this form, you agree to share your email with the team at MACS-Delivery
-          for purposes of education.
+          Please note that by submitting this form, you agree to share your email with the team at MACS-Delivery for purposes of education.
         </p>
       </section>
 
       <form onSubmit={handleSubmit}>
         <div className="form-field">
           <label htmlFor="name">1. Name</label>
-          <p className="field-note">Please enter your full name.</p>
           <input
             type="text"
             id="name"
@@ -66,10 +64,9 @@ const Form = () => {
         </div>
 
         <div className="form-field">
-          <label htmlFor="email">2. Email Address</label>
-          <p className="field-note">Please enter your email address.</p>
+          <label htmlFor="email">2. Email</label>
           <input
-            type="text"
+            type="email"
             id="email"
             name="email"
             value={formData.email}
@@ -82,10 +79,9 @@ const Form = () => {
       </form>
 
       <div className="help-button">?</div>
+      
     </div>
   );
 };
 
 export default Form;
-
-// test
