@@ -11,12 +11,6 @@ export class Participant {
   @Prop({ default: false })
   isOTP: boolean;
 
-  @Prop({ default: false })
-  isTNC: boolean;
-
-  @Prop({ type: Object })
-  surveyAnswers: any;
-
   @Prop({ default: Date.now })
   createdAt: Date;
 }
