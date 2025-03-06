@@ -43,6 +43,7 @@ const ScamAlert: React.FC<ScamAlertProps> = ({ isVisible, onClose, surveyUrl }) 
   return (
     <div className={`scam-alert-overlay ${animationActive ? 'animate' : ''}`}>
       <div className={`scam-alert-content ${animationActive && glitchEffect ? 'glitch' : ''}`}>
+        <div className="scam-alert-subtitle">Fake FormSG Alert</div>
         <h1 className="scam-alert-title">YOU COULD HAVE BEEN SCAMMED</h1>
         <p className="scam-alert-subtext">You may be prone to OTP or government impersonation scams</p>
         <button className="scam-alert-button" onClick={handleRedirect}>

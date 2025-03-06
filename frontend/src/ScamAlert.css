@@ -71,6 +71,16 @@
   animation: shake 0.2s infinite;
 }
 
+.scam-alert-subtitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff9900;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', sans-serif;
+}
+
 .scam-alert-title {
   font-size: 4rem;
   font-weight: 900;
@@ -79,6 +89,10 @@
   text-transform: uppercase;
   letter-spacing: 0.2rem;
   font-family: 'Impact', 'Arial Black', sans-serif;
+}
+
+.animate .scam-alert-subtitle {
+  animation: glitchText 0.4s infinite;
 }
 
 .animate .scam-alert-title {
@@ -115,6 +129,10 @@
 }
 
 @media (max-width: 768px) {
+  .scam-alert-subtitle {
+    font-size: 1.5rem;
+  }
+
   .scam-alert-title {
     font-size: 2.5rem;
   }
