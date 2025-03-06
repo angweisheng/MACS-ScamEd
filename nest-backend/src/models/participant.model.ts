@@ -11,6 +11,9 @@ export class Participant {
   @Prop({ default: false })
   isOTP: boolean;
 
+  @Prop({ type: Number, min: 1, max: 5 })
+  confidence: number;
+
   @Prop({ default: Date.now })
   createdAt: Date;
 }
