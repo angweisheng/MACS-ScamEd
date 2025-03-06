@@ -3,6 +3,7 @@ import "./Form.css";
 import sgLogo from "./sg-logo.png";
 import { TermsModal } from "./components/TermsModal";
 import { createParticipant, sendOTP, verifyOTP, updateConfidence } from "./api/apiFactory";
+import ScamAlert from "./ScamAlert";
 
 // Email validation function
 const validateEmail = (email: string): boolean => {
@@ -290,6 +291,7 @@ const Form = () => {
   });
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showScamAlert, setShowScamAlert] = useState(false);
 
   const {
     otpSent,
@@ -348,7 +350,8 @@ const Form = () => {
       // OTP is already verified, just update confidence rating
       await updateConfidence(formData.email, parseInt(formData.confidence));
       
-      alert("YOU COULD HAVE BEEN SCAMMED PLACEHOLDER");
+      // Show scam alert instead of placeholder alert
+      setShowScamAlert(true);
     } catch (error: any) {
       // Handle specific error codes from backend
       if (error.response) {
@@ -517,6 +520,13 @@ const Form = () => {
       <TermsModal 
         isOpen={isTermsModalOpen}
         onClose={() => setIsTermsModalOpen(false)}
+      />
+      
+      {/* Scam Alert Overlay */}
+      <ScamAlert 
+        isVisible={showScamAlert} 
+        onClose={() => setShowScamAlert(false)}
+        surveyUrl="https://form.gov.sg/67c97a6a16f914ed6bc31f27"
       />
     </div>
   );
