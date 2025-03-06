@@ -30,4 +30,13 @@ export class ParticipantsService {
     participant.isOTP = true;
     return participant.save();
   }
+
+  async updateConfidence(email: string, confidence: number): Promise<Participant> {
+    const participant = await this.participantModel.findOne({ email });
+    if (!participant) {
+      throw new NotFoundException(`Participant with email ${email} not found`);
+    }
+    participant.confidence = confidence;
+    return participant.save();
+  }
 }
